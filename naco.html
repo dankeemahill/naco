@@ -1,0 +1,209 @@
+<html>
+<head>
+
+<style>
+    #map-canvas {
+        height: 1000px;
+        /*border-top-left-radius: 15px; 
+        border-top-right-radius: 15px; 
+        border-bottom-left-radius: 5px; 
+        border-bottom-right-radius: 5px;
+        -webkit-border-radius: 5px; 
+        -moz-border-radius: 5px;*/
+    }
+
+    #map-container {height:80%; width:100%;
+    /*border-top-left-radius: 15px; 
+        border-top-right-radius: 15px; 
+        border-bottom-left-radius: 5px; 
+        border-bottom-right-radius: 5px;*/
+        border: 2px solid black;
+        overflow:hidden;
+        zoom: 1;
+     }
+
+    #header {
+        height: 20%;
+        font-family: sans-serif;
+    }
+
+    #zonaBox {
+        background: #FFF ;
+        padding: 5px;
+        margin: 5px;
+        font-size: 12px;
+        font-family: Arial, sans-serif;
+        position: absolute;
+        top: 350;
+        left: 50;
+    }
+
+    #mexBox {
+        background: #FFF ;
+        padding: 5px;
+        margin: 5px;
+        font-size: 12px;
+        font-family: Arial, sans-serif;
+        position: absolute;
+        top: 350;
+        left: 750;
+    }
+
+    h3 {
+        margin: 0px;
+        font-family: sans-serif;
+    }
+    h5 {
+        margin-top: 0px;
+        font-family: sans-serif;
+    }
+    .bad {
+        color: #ED6E6C;
+    }
+    .good {
+        color: #97AD62;
+    }
+    span {
+        font-family: sans-serif;
+    }
+</style>
+<script>
+var map;
+var poly;
+var frontera;
+var tableId = '1aJ_-XLrNBF8x1xvmCDBSzStfNh6cKNFEGmgqXiI';
+
+function initialize() {
+
+    var cities = new Array();
+
+    var naco = new google.maps.LatLng(31.324607,-109.94595);
+    cities[0] = naco;
+    var juarez = new google.maps.LatLng(31.748022,-106.413682);
+    cities[1] = juarez;
+    var tijuana = new google.maps.LatLng(32.546813,-116.977723);
+    cities[2] = tijuana;
+    var reynosa = new google.maps.LatLng(26.078988,-98.271385);
+    cities[3] = reynosa;
+    var laredo = new google.maps.LatLng(27.497004,-99.494644);
+    cities[4] = laredo;
+
+
+    map = new google.maps.Map(document.getElementById('map-canvas'), {
+        center: naco,
+        zoom: 14,
+        mapTypeId: google.maps.MapTypeId.SATELLITE,
+        draggable: false,
+        disableDoubleClickZoom: true,
+        mapTypeControl: false,
+        navigationControl: true,
+        panControl: false,
+        scrollwheel: false,
+        streetViewControl: false,
+        scaleControl: false,
+        zoomControl: false,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.SMALL
+        },
+    });
+
+    frontera = new google.maps.FusionTablesLayer({
+        query: {
+            select: 'geometry',
+            from: tableId,
+        },
+        styles : [{
+        polylineOptions: {
+            strokeColor: "#00FF00",
+            strokeWeight: "5"  },
+        polygonOptions: {
+            fillColor: '#00FF00',
+            fillOpacity: 0.3
+          }
+        }],
+        options: {
+            clickable: false
+        }
+    });
+
+    frontera.setMap(map);
+
+    $('#map-canvas').animate({rotate: '+=630'});
+    console.log(document.getElementById('map-canvas').style);
+    //document.getElementById('map-canvas').style.left=300;
+    document.getElementById('map-canvas').style.top = -250;
+    document.getElementById('map-canvas').style.position = 'fixed';
+
+    revealInfo();
+}
+
+function revealInfo() {
+    var zonaInfo = document.createElement('div');
+    zonaInfo.id = 'zonaBox';
+    var zonaContent = "<div style='font-size:12px'><span class='good'>POPULATION</span></br>" + //130464
+        "<span class='bad'>HIGH SCHOOL GRADUATES</span></br>" + //17.0%
+        "<span class='good'>EMPLOYMENT</span></br>"// 4.4%
+        + "</br><button id='zonaGuess' onclick='guess(this.id);'><label for='mexGuess' id='mexGuessText'>IT\'S MEXICO!</label></input></div>";
+    zonaInfo.innerHTML = zonaContent;
+    $('#canvas')[0].appendChild(zonaInfo);
+
+    var mexInfo = document.createElement('div');
+    mexInfo.id = 'mexBox';
+    var mexContent = "<div style='font-size:12px'><span class='bad'>POPULATION</span></br>" + //130464
+        "<span class='good'>HIGH SCHOOL GRADUATES</span></br>" + //17.0%
+        "<span class='bad'>EMPLOYMENT</span></br>"// 4.4%
+        + "</br><button id='mexGuess' onclick='guess(this.id);'><label for='mexGuess' id='mexGuessText'>IT\'S MEXICO!</label></input></div>";
+    mexInfo.innerHTML = mexContent;
+    $('#canvas')[0].appendChild(mexInfo);
+}
+
+function guess(choice) {
+    $('#map-canvas').animate({rotate: '+=90'});
+    $('#mexBox').css("left", 450);
+    $('#zonaBox').css("top", 150).css("left", 450)
+
+    $('#mexGuess').remove();
+
+    if (choice === "zonaGuess") {
+        var zona = document.getElementById('zonaBox');
+        zona.style.border = '3px solid red';
+        document.getElementById('mexBox').innerHTML="Naco, MEX!";
+        zona.innerHTML="Wrong.</br>Naco, USA!";
+    }
+
+    else {
+        var mex = document.getElementById('mexBox');
+        mex.style.border = '3px solid green';
+        document.getElementById('zonaBox').innerHTML="Naco, USA!";
+        mex.innerHTML="Right,</br>Naco, MEX!";
+    }
+
+}
+
+</script>
+
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="jquery.js"></script>
+<script src="jquery-animate-css-rotate-scale.js"></script>
+
+</head>
+
+<body onload="initialize()">
+
+<div id="canvas">
+
+    <div id="header">
+        <h1> Naco or Naco?</h1>
+    <span style="float:right"><img src='img/draw.jpg' href="index.html" height="42" width="42" border='1px solid black'></br><a href="index.html">Play "Draw the Border!"</a></span>
+    <span width="400px" style="font-size: small">The unincorporated town of Naco, Arizona shares the border with... Naco, Sonora.</br>
+        The map below has been shifted, can you use the demographic data to figure out which Naco belongs in Mexico?
+        <br>Sources: <a href="http://factfinder2.census.gov/faces/nav/jsf/pages/index.xhtml">American Community Survey</a>, <a href="http://www.snim.rami.gob.mx/">Sistema Nacional de Informacion Municipal</a></span> <span style="font-size:.3em">Have fun? Think it sucks? Tweet <a href="https://twitter.com/DanHillReports">@DanHillReports</a>!</span>
+    </div>
+
+    <div id ='map-container'>
+    	<div id="map-canvas"></div>
+    </div>
+</div>
+
+</body>
+</html>
