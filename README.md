@@ -1,9 +1,9 @@
 naco
 ====
 
-"Draw the Border!" and "Naco or Naco?" are border cities quiz games built for Migrahack. 
+"Draw the Border!" and "Naco or Naco?" are border cities quiz games built for [Migrahack](http://www.chicagomigrahack.com/). 
 
-Check them out by viewing the files draw.html and naco.html respectively.
+See them in action by viewing the files draw.html and naco.html respectively.
 
 The prototypes were slapped together in a matter of hours, so I'm here to make improvements like:
 
