@@ -13,6 +13,11 @@ var tableId = '1aJ_-XLrNBF8x1xvmCDBSzStfNh6cKNFEGmgqXiI';
 
 function initialize() {
 
+    data = $.getJSON("data/counties.json", function(d) {
+        data = d;
+        console.log(data);
+    })
+
     var cities = new Array();
 
     var naco = new google.maps.LatLng(31.324607,-109.94595);
@@ -63,10 +68,6 @@ function initialize() {
             clickable: false
         }
     });
-
-    var rotation = (Math.random()*250+30);
-    console.log(rotation);    
-    //$('#map-canvas').animate({rotate: '+=' + rotation}, 2);
 
     var polyOptions = {
         strokeColor: '#000',
@@ -178,7 +179,6 @@ function showInfo() {
 </script>
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script src="js/jquery-animate-css-rotate-scale.js"></script>
 <script src="js/underscore.js"></script>
 <script src="js/backbone.js"></script>
 <script src="js/jquery.js"></script>

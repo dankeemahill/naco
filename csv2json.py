@@ -10,4 +10,4 @@ def csv2json(filename, *fieldnames):
     return new_file
 
 if __name__ == '__main__':
-    csv2json('data/counties.csv', 'Geography', 'USA', 'population', 'unemployment rate', 'high school',	'high school %', 'GDP per capita $', 'Lat', 'Lon')
+    csv2json('data/counties.csv', 'Geography', 'USA', 'population', 'unemployment rate', 'high school',	'high school %', 'GDP per capita $', 'lat', 'lon')
