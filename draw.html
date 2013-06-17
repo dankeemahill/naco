@@ -16,7 +16,7 @@ function initialize() {
     data = $.getJSON("data/counties.json", function(d) {
         data = d;
         console.log(data);
-    })
+    });
 
     var cities = new Array();
 
@@ -87,6 +87,7 @@ function initialize() {
     lineBoxes.index = 1; 
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(lineBoxes);
 
+    return data;
 }
 
   /**
@@ -145,28 +146,30 @@ function doneDrawing() {
 }
 
 function showInfo() {
+    var juarezData = getData('juarez');
     var juarezLoc = new google.maps.LatLng(31.58847937271219, -106.60514831542969);
     var juarezWindow = new google.maps.InfoWindow();
     var juarezContent = "<h3>Ciudad Juarez</h3>" +
         "<h5>Juarez, Chihuahua, Mex.</h5>" + 
-        "<div style='font-size:12px'><span class='good'>Population</span>: 1,332,131</br>" + 
-        "<span class='good'>High school graduates</span>: 16.1%</br>" +
-        "<span class='bad'>Unemployment rate</span>: 6.4%</br>" +
-        "<span class='bad'>GDP per capita</span>: $13,565</br>"
+        "<div style='font-size:12px'><span class='good'>Population</span>: " + juarezData['population'] + "</br>" + 
+        "<span class='good'>High school graduates</span>: " + juarezData['grads'] + "</br>" +
+        "<span class='bad'>Unemployment rate</span>: " + juarezData['unemployment'] + "</br>" +
+        "<span class='bad'>GDP per capita</span>: " + juarezData['gdp'] + "</br>"
         + "</div>";
 
     juarezWindow.setContent(juarezContent);
     juarezWindow.setPosition(juarezLoc);
     juarezWindow.open(map);
 
+    var pasoData = getData('elpaso');
     var pasoLoc = new google.maps.LatLng(31.693119,-106.316285);
     var pasoWindow = new google.maps.InfoWindow();
     var pasoContent = "<h3>El Paso</h3>" +
         "<h5>El Paso County, Texas, USA</h5>" + 
-        "<div style='font-size:12px'><span class='bad'>Population</span>: 787,410</br>" + 
-        "<span class='bad'>High school graduates</span>: 14.3%</br>" +
-        "<span class='good'>Unemployment rate</span>: 4.4%</br>" +
-        "<span class='good'>GDP per capita</span>: $29,759</br>"
+        "<div style='font-size:12px'><span class='good'>Population</span>: " + pasoData['population'] + "</br>" + 
+        "<span class='good'>High school graduates</span>: " + pasoData['grads'] + "</br>" +
+        "<span class='bad'>Unemployment rate</span>: " + pasoData['unemployment'] + "</br>" +
+        "<span class='bad'>GDP per capita</span>: " + pasoData['gdp'] + "</br>"
         + "</div>";
 
     pasoWindow.setContent(pasoContent);
@@ -174,6 +177,15 @@ function showInfo() {
     pasoWindow.open(map);
 
     map.setOptions({draggable:true, scrollwheel:true})
+}
+
+function getData(pos) {
+    for (var i=0; i<data.length; i++) {
+        if (data[i].ID === pos) {
+            var regData = data[i];
+        }
+    }
+    return regData;
 }
 
 </script>
