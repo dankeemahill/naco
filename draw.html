@@ -166,10 +166,10 @@ function showInfo() {
     var pasoWindow = new google.maps.InfoWindow();
     var pasoContent = "<h3>El Paso</h3>" +
         "<h5>El Paso County, Texas, USA</h5>" + 
-        "<div style='font-size:12px'><span class='good'>Population</span>: " + pasoData['population'] + "</br>" + 
-        "<span class='good'>High school graduates</span>: " + pasoData['grads'] + "</br>" +
-        "<span class='bad'>Unemployment rate</span>: " + pasoData['unemployment'] + "</br>" +
-        "<span class='bad'>GDP per capita</span>: " + pasoData['gdp'] + "</br>"
+        "<div style='font-size:12px'><span class='bad'>Population</span>: " + pasoData['population'] + "</br>" + 
+        "<span class='bad'>High school graduates</span>: " + pasoData['grads'] + "</br>" +
+        "<span class='good'>Unemployment rate</span>: " + pasoData['unemployment'] + "</br>" +
+        "<span class='good'>GDP per capita</span>: " + pasoData['gdp'] + "</br>"
         + "</div>";
 
     pasoWindow.setContent(pasoContent);
