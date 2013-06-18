@@ -1,0 +1,17 @@
+MAP
+	center
+	CITY - collection of two cities
+		titles
+		population
+		high school
+		unemployment
+		gdp
+		where to popup the boxes
+		comparison
+	separate logic for one city into its own model then append into collection
+
+VIEW
+
+
+ROUTER
+	#level1 click to next levels, get collection data for that level
