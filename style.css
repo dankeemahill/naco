@@ -1,3 +1,7 @@
+body { padding-top: 40px; }
+@media screen and (max-width: 768px) {
+    body { padding-top: 0px; }
+}
 #map-canvas {
     height: 75%;width: 100%; 
     /*border-top-left-radius: 15px; 
@@ -53,6 +57,22 @@ h5 {
 .good {
     color: #97AD62;
 }
+div.navbar-inner:first-child{
+    padding-left: 20px;    
+}
 span {
     font-family: sans-serif;
+}
+div.side-link {
+    float: right;
+    margin-left: 10px;
+}
+div.side-link img {
+    height: 42;
+    width: 42;
+    border: 1px solid black;
+    display: block;
+    margin-bottom: 5px;
+}
+div.side-link a {
 }
