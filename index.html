@@ -22,6 +22,7 @@ var CityModel = Backbone.Model.extend({
         data['geography'] = data['Geography'];
         data['id'] =  data['ID'];
         data['usa'] = parseInt(data['USA']);
+        data['title'] = data['Title'];
         data['gdp'] = parseInt(data['gdp'].replace('$', '').replace(',',''));
         data['graduates_percent'] = data['grads'];
         data['high_school'] = parseInt(data['high school']);
@@ -33,6 +34,7 @@ var CityModel = Backbone.Model.extend({
         // delete the old properties
         delete data['Geography'];
         delete data['ID'];
+        delete data['Title'];
         delete data['USA'];
         delete data['grads'];
         delete data['high school'];
@@ -94,9 +96,6 @@ var CityContentView = Backbone.View.extend({
     render: function(){
         $(this.el).html( this.template({ cityData: this.model.toJSON()}) );
         return this;
-    },
-    initialize: function(options){ 
-        this.model.set('title', options.title);
     }
 });
 
@@ -238,7 +237,7 @@ function showInfo() {
     var juarez = cities.get('juarez')
     var juarezLoc = new google.maps.LatLng(31.58847937271219, -106.60514831542969); // are these the citie's coordinate? if so we can use the paso.plot() method
     var juarezWindow = new google.maps.InfoWindow();
-    var juarezContent = new CityContentView({model: juarez, title: 'Ciudad Juarez'});
+    var juarezContent = new CityContentView({model: juarez});
     juarezWindow.setContent(juarezContent.render().el);
     juarezWindow.setPosition(juarezLoc);
     juarezWindow.open(map);
@@ -246,7 +245,7 @@ function showInfo() {
     var paso = cities.get('elpaso');
     var pasoLoc = new google.maps.LatLng(31.693119,-106.316285); // are these the citie's coordinate? if so we can use the paso.plot() method
     var pasoWindow = new google.maps.InfoWindow();
-    var pasoContent = new CityContentView({model: paso, title: 'El Paso'});
+    var pasoContent = new CityContentView({model: paso});
     pasoWindow.setContent(pasoContent.render().el);
     pasoWindow.setPosition(pasoLoc);
     pasoWindow.open(map);
