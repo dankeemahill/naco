@@ -238,7 +238,7 @@ function showInfo() {
     var juarez = cities.get('juarez')
     var juarezLoc = new google.maps.LatLng(31.58847937271219, -106.60514831542969); // are these the citie's coordinate? if so we can use the paso.plot() method
     var juarezWindow = new google.maps.InfoWindow();
-    var juarezContent = new CityContentView({model: juarez, title: 'Ciudad, Juarez'});
+    var juarezContent = new CityContentView({model: juarez, title: 'Ciudad Juarez'});
     juarezWindow.setContent(juarezContent.render().el);
     juarezWindow.setPosition(juarezLoc);
     juarezWindow.open(map);
