@@ -47,7 +47,7 @@ var CityModel = Backbone.Model.extend({
     },
     plot: function(){
         return new google.maps.LatLng(this.get('latitude'), this.get('longitude'));
-    }
+    },
 
     
 });
@@ -62,6 +62,41 @@ var CitiesCollection = Backbone.Collection.extend({
             data[i] = city;
         });
         return data;
+    }
+});
+
+var CityContentView = Backbone.View.extend({
+    template: _.template('\
+        <h3><%= cityData.title %></h3>\
+        <h5><%= cityData.geography %></h5>\
+        <div style="font-size:12px">\
+            <span>\
+                Population:\
+            </span>\
+            <%= cityData.population %> \
+            </br>\
+            <span>\
+                High school graduates:\
+            </span>\
+            <%= cityData.graduates_percent %>\
+            </br>\
+            <span>\
+                Unemployment rate:\
+            </span> \
+                <%= cityData.unemployment_percent %>\
+            </br>\
+            <span>\
+                GDP per capita:\
+            </span>\
+            <%= cityData.gdp %>\
+            </br>\
+        </div>'),
+    render: function(){
+        $(this.el).html( this.template({ cityData: this.model.toJSON()}) );
+        return this;
+    },
+    initialize: function(options){ 
+        this.model.set('title', options.title);
     }
 });
 
@@ -200,33 +235,19 @@ function doneDrawing() {
 }
 
 function showInfo() {
-    var juarezData = cities.get('juarez').toJSON();
-    var juarezLoc = new google.maps.LatLng(31.58847937271219, -106.60514831542969);
+    var juarez = cities.get('juarez')
+    var juarezLoc = new google.maps.LatLng(31.58847937271219, -106.60514831542969); // are these the citie's coordinate? if so we can use the paso.plot() method
     var juarezWindow = new google.maps.InfoWindow();
-    var juarezContent = "<h3>Ciudad Juarez</h3>" +
-        "<h5>Juarez, Chihuahua, Mex.</h5>" + 
-        "<div style='font-size:12px'><span class='good'>Population</span>: " + juarezData['population'] + "</br>" + 
-        "<span class='good'>High school graduates</span>: " + juarezData['grads'] + "</br>" +
-        "<span class='bad'>Unemployment rate</span>: " + juarezData['unemployment'] + "</br>" +
-        "<span class='bad'>GDP per capita</span>: " + juarezData['gdp'] + "</br>"
-        + "</div>";
-
-    juarezWindow.setContent(juarezContent);
+    var juarezContent = new CityContentView({model: juarez, title: 'Ciudad, Juarez'});
+    juarezWindow.setContent(juarezContent.render().el);
     juarezWindow.setPosition(juarezLoc);
     juarezWindow.open(map);
-
-    var pasoData = cities.get('elpaso').toJSON();
-    var pasoLoc = new google.maps.LatLng(31.693119,-106.316285);
+    
+    var paso = cities.get('elpaso');
+    var pasoLoc = new google.maps.LatLng(31.693119,-106.316285); // are these the citie's coordinate? if so we can use the paso.plot() method
     var pasoWindow = new google.maps.InfoWindow();
-    var pasoContent = "<h3>El Paso</h3>" +
-        "<h5>El Paso County, Texas, USA</h5>" + 
-        "<div style='font-size:12px'><span class='bad'>Population</span>: " + pasoData['population'] + "</br>" + 
-        "<span class='bad'>High school graduates</span>: " + pasoData['grads'] + "</br>" +
-        "<span class='good'>Unemployment rate</span>: " + pasoData['unemployment'] + "</br>" +
-        "<span class='good'>GDP per capita</span>: " + pasoData['gdp'] + "</br>"
-        + "</div>";
-
-    pasoWindow.setContent(pasoContent);
+    var pasoContent = new CityContentView({model: paso, title: 'El Paso'});
+    pasoWindow.setContent(pasoContent.render().el);
     pasoWindow.setPosition(pasoLoc);
     pasoWindow.open(map);
 
