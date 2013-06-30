@@ -3,66 +3,8 @@
 
 <title>Draw the border!</title>
 
-<style>
-    #map-canvas {
-        height: 75%;width: 100%; 
-        /*border-top-left-radius: 15px; 
-        border-top-right-radius: 15px; 
-        border-bottom-left-radius: 5px; 
-        border-bottom-right-radius: 5px;
-        -webkit-border-radius: 5px; 
-        -moz-border-radius: 5px;*/
-    }
-    #map-container {height:400px; width:400px;
-    /*border-top-left-radius: 15px; 
-        border-top-right-radius: 15px; 
-        border-bottom-left-radius: 5px; 
-        border-bottom-right-radius: 5px;*/
-        border: 2px solid black;
-        -webkit-border-radius: 25px; 
-        -moz-border-radius: 25px;
-        border-radius: 100%;
-        overflow:hidden;
-        zoom: 1;
-         }
-    #container2 {height: 400px; width: 400px; overflow: hidden; border: 1px solid black;}
+<link rel=stylesheet href="style.css" type="text/css">
 
-    #header {
-        height: 25%;
-        font-family: sans-serif;
-    }
-
-    #line-boxes {
-        background: #FFF ;
-        padding: 5px;
-        margin: 5px;
-        font-size: 12px;
-        font-family: Arial, sans-serif; }
-
-    #next-box {
-        background: #FFF ;
-        padding: 5px;
-        margin: 5px;
-        font-size: 12px;
-        font-family: Arial, sans-serif; }
-    h3 {
-        margin: 0px;
-        font-family: sans-serif;
-    }
-    h5 {
-        margin-top: 0px;
-        font-family: sans-serif;
-    }
-    .bad {
-        color: #ED6E6C;
-    }
-    .good {
-        color: #97AD62;
-    }
-    span {
-        font-family: sans-serif;
-    }
-</style>
 <script>
 var map;
 var poly;
@@ -70,6 +12,11 @@ var frontera;
 var tableId = '1aJ_-XLrNBF8x1xvmCDBSzStfNh6cKNFEGmgqXiI';
 
 function initialize() {
+
+    data = $.getJSON("data/counties.json", function(d) {
+        data = d;
+        console.log(data);
+    });
 
     var cities = new Array();
 
@@ -122,10 +69,6 @@ function initialize() {
         }
     });
 
-    var rotation = (Math.random()*250+30);
-    console.log(rotation);    
-    //$('#map-canvas').animate({rotate: '+=' + rotation}, 2);
-
     var polyOptions = {
         strokeColor: '#000',
         strokeOpacity: 1.0,
@@ -144,6 +87,7 @@ function initialize() {
     lineBoxes.index = 1; 
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(lineBoxes);
 
+    return data;
 }
 
   /**
@@ -157,7 +101,7 @@ function addLatLng(event) {
   // Because path is an MVCArray, we can simply append a new coordinate
   // and it will automatically appear
   path.push(event.latLng);
-  console.log(event.latLng)
+  //console.log(event.latLng)
 
   // Add a new marker at the new plotted point on the polyline.
   /*var marker = new google.maps.Marker({
@@ -202,28 +146,30 @@ function doneDrawing() {
 }
 
 function showInfo() {
+    var juarezData = getData('juarez');
     var juarezLoc = new google.maps.LatLng(31.58847937271219, -106.60514831542969);
     var juarezWindow = new google.maps.InfoWindow();
     var juarezContent = "<h3>Ciudad Juarez</h3>" +
         "<h5>Juarez, Chihuahua, Mex.</h5>" + 
-        "<div style='font-size:12px'><span class='good'>Population</span>: 1,332,131</br>" + 
-        "<span class='good'>High school graduates</span>: 16.1%</br>" +
-        "<span class='bad'>Unemployment rate</span>: 6.4%</br>" +
-        "<span class='bad'>GDP per capita</span>: $13,565</br>"
+        "<div style='font-size:12px'><span class='good'>Population</span>: " + juarezData['population'] + "</br>" + 
+        "<span class='good'>High school graduates</span>: " + juarezData['grads'] + "</br>" +
+        "<span class='bad'>Unemployment rate</span>: " + juarezData['unemployment'] + "</br>" +
+        "<span class='bad'>GDP per capita</span>: " + juarezData['gdp'] + "</br>"
         + "</div>";
 
     juarezWindow.setContent(juarezContent);
     juarezWindow.setPosition(juarezLoc);
     juarezWindow.open(map);
 
+    var pasoData = getData('elpaso');
     var pasoLoc = new google.maps.LatLng(31.693119,-106.316285);
     var pasoWindow = new google.maps.InfoWindow();
     var pasoContent = "<h3>El Paso</h3>" +
         "<h5>El Paso County, Texas, USA</h5>" + 
-        "<div style='font-size:12px'><span class='bad'>Population</span>: 787,410</br>" + 
-        "<span class='bad'>High school graduates</span>: 14.3%</br>" +
-        "<span class='good'>Unemployment rate</span>: 4.4%</br>" +
-        "<span class='good'>GDP per capita</span>: $29,759</br>"
+        "<div style='font-size:12px'><span class='bad'>Population</span>: " + pasoData['population'] + "</br>" + 
+        "<span class='bad'>High school graduates</span>: " + pasoData['grads'] + "</br>" +
+        "<span class='good'>Unemployment rate</span>: " + pasoData['unemployment'] + "</br>" +
+        "<span class='good'>GDP per capita</span>: " + pasoData['gdp'] + "</br>"
         + "</div>";
 
     pasoWindow.setContent(pasoContent);
@@ -233,11 +179,21 @@ function showInfo() {
     map.setOptions({draggable:true, scrollwheel:true})
 }
 
+function getData(pos) {
+    for (var i=0; i<data.length; i++) {
+        if (data[i].ID === pos) {
+            var regData = data[i];
+        }
+    }
+    return regData;
+}
+
 </script>
 
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="js/underscore.js"></script>
+<script src="js/backbone.js"></script>
 <script src="js/jquery.js"></script>
-<script src="js/jquery-animate-css-rotate-scale.js"></script>
 
 </head>
 
