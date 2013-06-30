@@ -7,36 +7,81 @@
 <link rel=stylesheet href="lib/css/bootstrap-responsive.css" type="text/css">
 <link rel=stylesheet href="style.css" type="text/css">
 <script src="lib/js/jquery.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="lib/js/underscore.js"></script>
+<script src="lib/js/backbone.js"></script>
+<script src="lib/js/bootstrap.js"></script>
 
 <script>
+
+
+var CityModel = Backbone.Model.extend({
+    parse: function(data){
+
+        // parse the model to have better names
+        data['geography'] = data['Geography'];
+        data['id'] =  data['ID'];
+        data['usa'] = parseInt(data['USA']);
+        data['gdp'] = parseInt(data['gdp'].replace('$', '').replace(',',''));
+        data['graduates_percent'] = data['grads'];
+        data['high_school'] = parseInt(data['high school']);
+        data['latitude'] = parseFloat(data['lat']);
+        data['longitude'] = parseFloat(data['lon']);
+        data['population'] = parseInt(data['population'].replace(',',''));
+        data['unemployment_percent'] = data['unemployment'];
+
+        // delete the old properties
+        delete data['Geography'];
+        delete data['ID'];
+        delete data['USA'];
+        delete data['grads'];
+        delete data['high school'];
+        delete data['lat'];
+        delete data['lon'];
+        delete data['unemployment'];
+
+        return data;
+    },
+    in_usa: function(){
+        return this.get('usa');
+    },
+    plot: function(){
+        return new google.maps.LatLng(this.get('latitude'), this.get('longitude'));
+    }
+
+    
+});
+
+var CitiesCollection = Backbone.Collection.extend({
+    model: CityModel,
+    url: 'data/counties.json',
+    parse: function(data){
+        that = this;
+        _.each(data, function(city, i){
+            var city = new CityModel(city, {parse: true});
+            data[i] = city;
+        });
+        return data;
+    }
+});
+
 var map;
 var poly;
 var frontera;
 var tableId = '1aJ_-XLrNBF8x1xvmCDBSzStfNh6cKNFEGmgqXiI';
+var data
 
-var data = $.getJSON("data/counties.json", function(d) {
-    data = d;
-    console.log(data);
-    return initialize();
-
-});
+var cities = new CitiesCollection();
+cities.fetch({success: function(){ data = initialize(); }});
 
 
 function initialize() {
 
-
-    var cities = new Array();
-
-    var naco = new google.maps.LatLng(31.324607,-109.94595);
-    cities[0] = naco;
-    var juarez = new google.maps.LatLng(31.748022,-106.413682);
-    cities[1] = juarez;
-    var tijuana = new google.maps.LatLng(32.546813,-116.977723);
-    cities[2] = tijuana;
-    var reynosa = new google.maps.LatLng(26.078988,-98.271385);
-    cities[3] = reynosa;
-    var laredo = new google.maps.LatLng(27.497004,-99.494644);
-    cities[4] = laredo;
+    var naco = cities.get('naco').plot();
+    var juarez = cities.get('juarez').plot();
+    var tijuana = cities.get('tijuana').plot();
+    var reynosa = cities.get('reynosa').plot();
+    var laredo = cities.get('nuevolaredo').plot();
 
     frontera = new google.maps.FusionTablesLayer({
         query: {
@@ -96,7 +141,7 @@ function initialize() {
     lineBoxes.index = 1; 
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(lineBoxes);
 
-    return data;
+    return cities.toJSON();
 }
 
  /**
@@ -155,7 +200,7 @@ function doneDrawing() {
 }
 
 function showInfo() {
-    var juarezData = getData('juarez');
+    var juarezData = cities.get('juarez').toJSON();
     var juarezLoc = new google.maps.LatLng(31.58847937271219, -106.60514831542969);
     var juarezWindow = new google.maps.InfoWindow();
     var juarezContent = "<h3>Ciudad Juarez</h3>" +
@@ -170,7 +215,7 @@ function showInfo() {
     juarezWindow.setPosition(juarezLoc);
     juarezWindow.open(map);
 
-    var pasoData = getData('elpaso');
+    var pasoData = cities.get('elpaso').toJSON();
     var pasoLoc = new google.maps.LatLng(31.693119,-106.316285);
     var pasoWindow = new google.maps.InfoWindow();
     var pasoContent = "<h3>El Paso</h3>" +
@@ -198,12 +243,6 @@ function getData(pos) {
 }
 
 </script>
-
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script src="lib/js/underscore.js"></script>
-<script src="lib/js/backbone.js"></script>
-<script src="lib/js/bootstrap.js"></script>
-
 
 </head>
 
@@ -239,6 +278,9 @@ function getData(pos) {
              Start clicking on the map to create the points to construct your border line and click "Done!" to see the real border in green and learn about the cities on each side. 
         </div>
 
+            <div id="map-canvas"></div>
+
+<!--
         <h1> Naco or Naco?</h1>
 
         <div class="side-link">
@@ -252,12 +294,9 @@ function getData(pos) {
         
         <small>Have fun? Think it sucks? Tweet <a href="https://twitter.com/DanHillReports">@DanHillReports</a></small>
 
-        <div id ='map-container'>
-            <div id="map-canvas"></div>
-        </div>
 
     </div>
-
+-->
 </body>
 </html>
 
