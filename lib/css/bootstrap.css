@@ -112,7 +112,6 @@ img {
   max-width: none;
 }
 
-button,
 input,
 select,
 textarea {
@@ -1069,7 +1068,7 @@ textarea {
 }
 
 label {
-  display: block;
+  /*display: block;*/
   margin-bottom: 5px;
 }
 
@@ -1168,9 +1167,7 @@ input[type="color"]:focus,
 
 input[type="radio"],
 input[type="checkbox"] {
-  margin: 4px 0 0;
-  margin-top: 1px \9;
-  *margin-top: 0;
+  margin-bottom: 5px;
   line-height: normal;
 }
 
