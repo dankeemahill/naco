@@ -143,27 +143,41 @@ function initialize() {
         editable: false //users?
       }
 
+    initial_options = {
+        center: juarez,
+        zoom: 11,
+        mapTypeId: google.maps.MapTypeId.SATELLITE,
+        draggable: false,
+        disableDoubleClickZoom: true,
+        mapTypeControl: false,
+        navigationControl: true,
+        panControl: false,
+        scrollwheel: false,
+        streetViewControl: false,
+        scaleControl: false,
+        zoomControl: false,
+        zoomControlOptions: {
+            position: google.maps.ControlPosition.TOP_RIGHT
+        },
+    };
+
+    done_options = {
+        panControl: true,
+        panControlOptions: {
+             position: google.maps.ControlPosition.TOP_RIGHT
+        },
+        scrollwheel: true,
+        // scaleControl: true,
+        zoomControl: true,
+        draggable:true, 
+        scrollwheel:true,
+    }
+
     poly = new google.maps.Polyline(polyOptions);
 
     $(document).ready(function(){
 
-        map = new google.maps.Map(document.getElementById('map-canvas'), {
-            center: juarez,
-            zoom: 11,
-            mapTypeId: google.maps.MapTypeId.SATELLITE,
-            draggable: false,
-            disableDoubleClickZoom: true,
-            mapTypeControl: false,
-            navigationControl: true,
-            panControl: false,
-            scrollwheel: false,
-            streetViewControl: false,
-            scaleControl: false,
-            zoomControl: false,
-            zoomControlOptions: {
-                style: google.maps.ZoomControlStyle.SMALL
-            },
-        });
+        map = new google.maps.Map(document.getElementById('map-canvas'), initial_options);
         poly.setMap(map);
         google.maps.event.addListener(map, 'click', addLatLng);
 
@@ -250,7 +264,7 @@ function showInfo() {
     pasoWindow.setPosition(pasoLoc);
     pasoWindow.open(map);
 
-    map.setOptions({draggable:true, scrollwheel:true})
+    map.setOptions(done_options);
 }
 
 function getData(pos) {
