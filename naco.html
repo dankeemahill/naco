@@ -13,26 +13,17 @@
 <style>
     #map-canvas {
         height: 1000px;
-        /*border-top-left-radius: 15px; 
-        border-top-right-radius: 15px; 
-        border-bottom-left-radius: 5px; 
-        border-bottom-right-radius: 5px;
-        -webkit-border-radius: 5px; 
-        -moz-border-radius: 5px;*/
+        width: 600px;
     }
 
-    #map-container {height:80%; width:100%;
-    /*border-top-left-radius: 15px; 
-        border-top-right-radius: 15px; 
-        border-bottom-left-radius: 5px; 
-        border-bottom-right-radius: 5px;*/
+    #map-container {height: 60%; width:80%;
         border: 2px solid black;
         overflow:hidden;
         zoom: 1;
      }
 
     #header {
-        height: 20%;
+        height: 40%;
         font-family: sans-serif;
     }
 
@@ -139,8 +130,8 @@ function initialize() {
 
     $('#map-canvas').animate({rotate: '+=630'});
     console.log(document.getElementById('map-canvas').style);
-    //document.getElementById('map-canvas').style.left=300;
-    document.getElementById('map-canvas').style.top = -250;
+    document.getElementById('map-canvas').style.left=140;
+    document.getElementById('map-canvas').style.top = -200;
     document.getElementById('map-canvas').style.position = 'fixed';
 
     revealInfo();
@@ -195,19 +186,34 @@ function guess(choice) {
 
 <body onload="initialize()">
 
-<div id="canvas">
+<div class="container">
 
-    <div id="header">
-        <h1> Naco or Naco?</h1>
-    <span style="float:right"><img src='img/draw.jpg' href="index.html" height="42" width="42" border='1px solid black'></br><a href="index.html">Play "Draw the Border!"</a></span>
-    <span width="400px" style="font-size: small">The unincorporated town of Naco, Arizona shares the border with... Naco, Sonora.</br>
-        The map below has been shifted, can you use the demographic data to figure out which Naco belongs in Mexico?
-        <br>Sources: <a href="http://factfinder2.census.gov/faces/nav/jsf/pages/index.xhtml">American Community Survey</a>, <a href="http://www.snim.rami.gob.mx/">Sistema Nacional de Informacion Municipal</a></span> <span style="font-size:.3em">Have fun? Think it sucks? Tweet <a href="https://twitter.com/DanHillReports">@DanHillReports</a>!</span>
+    <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+            <a class="brand" href="#">Naco</a>
+            <ul class="nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Source</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
     </div>
 
-    <div id ='map-container'>
-    	<div id="map-canvas"></div>
+    <div id="canvas">
+
+        <div id="header">
+            <h1> Naco or Naco?</h1>
+        <div class="side-link"><img src='img/draw.jpg' href="index.html" height="42" width="42" border='1px solid black'></br><a href="index.html">Play "Draw the Border!"</a></div>
+        <p class="lead">The unincorporated town of Naco, Arizona shares the border with... Naco, Sonora.</br>
+        <p>The map below has been shifted, can you use the demographic data to figure out which Naco belongs in Mexico?</p>
+        <p>Sources: <a href="http://factfinder2.census.gov/faces/nav/jsf/pages/index.xhtml">American Community Survey</a>, <a href="http://www.snim.rami.gob.mx/">Sistema Nacional de Informacion Municipal</a></span></p> 
+        <small>Have fun? Think it sucks? Tweet <a href="https://twitter.com/DanHillReports">@DanHillReports</a>!</small>
+        </div>
+
+        	<div id="map-canvas"></div>
+
     </div>
+
 </div>
 
 </body>
