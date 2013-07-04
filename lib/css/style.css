@@ -63,3 +63,7 @@ div.side-link img {
 }
 div.side-link a {
 }
+
+img[src*="gstatic.com/"], img[src*="googleapis.com/"]  {
+    max-width: 99999px !important;
+}
