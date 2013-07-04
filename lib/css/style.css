@@ -4,12 +4,6 @@ body { padding-top: 40px; }
 }
 #map-canvas {
     height: 75%;width: 100%; 
-    /*border-top-left-radius: 15px; 
-    border-top-right-radius: 15px; 
-    border-bottom-left-radius: 5px; 
-    border-bottom-right-radius: 5px;
-    -webkit-border-radius: 5px; 
-    -moz-border-radius: 5px;*/
 }
 #map-container {
     height:400px; width:400px;
