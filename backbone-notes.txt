@@ -8,10 +8,14 @@ MAP
 		gdp
 		where to popup the boxes
 		comparison
-	separate logic for one city into its own model then append into collection
+	separate logic for one city into its own model then append into *collection*
 
 VIEW
 
 
 ROUTER
 	#level1 click to next levels, get collection data for that level
+	
+	
+7/30 - to assign good (green) and bad (red) we need to compare the active cities
+	so we need to know which cities are active - architecture!
