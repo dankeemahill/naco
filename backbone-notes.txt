@@ -19,3 +19,6 @@ ROUTER
 	
 7/30 - to assign good (green) and bad (red) we need to compare the active cities
 	so we need to know which cities are active - architecture!
+
+8/11 - restructuring for architecture -> require.js issues. HALP.
+	i.e. Cannot read property 'Router' of null, Cannot read property 'ajax' of undefined
