@@ -11,4 +11,4 @@ The prototypes were slapped together in a matter of hours, so I'm here to make i
 +   improve map interaction/make drawing the border not suck
 +   add more meaningful city data
 
-I also am using this as an opportunity to experiment with Backbone, so I'll be doing most of my work on the "backbone" branch. Please fork or Tweet me [@DanHillReports](http://twitter.com/danhillreports) if you have ideas!
+I also am using this as an opportunity to experiment with Backbone. Please fork or Tweet me [@DanHillReports](http://twitter.com/danhillreports) if you have ideas!
