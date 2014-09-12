@@ -1,0 +1,1 @@
+var levels=[{mexCity:"juarez",usCity:"elpaso",center:[31.748022,-106.413682]},{mexCity:"nuevolaredo",usCity:"webb",center:[27.497004,-99.494644]},{mexCity:"reynosa",usCity:"hidalgo",center:[26.078988,-98.271385]},{mexCity:"tijuana",usCity:"sandiego",center:[32.546813,-116.977723]}];

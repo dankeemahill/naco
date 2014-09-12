@@ -6,6 +6,7 @@
 <link rel=stylesheet href="lib/css/bootstrap.css" type="text/css">
 <link rel=stylesheet href="lib/css/bootstrap-responsive.css" type="text/css">
 <link rel=stylesheet href="lib/css/style.css" type="text/css">
+<script src="data/levels.js"></script>
 <script src="lib/js/jquery.js"></script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script src="lib/js/underscore.js"></script>
@@ -86,23 +87,15 @@ var CityContentView = Backbone.View.extend({
     }
 });
 
-var map;
-var poly;
-var frontera;
+var map, poly, frontera;
 var tableId = '1aJ_-XLrNBF8x1xvmCDBSzStfNh6cKNFEGmgqXiI';
-var data
 
 var cities = new CitiesCollection();
 cities.fetch({success: function(){ data = initialize(); }});
 
+LEVEL_COUNTER = 0;
 
 function initialize() {
-
-    var naco = cities.get('naco').plot();
-    var juarez = cities.get('juarez').plot();
-    var tijuana = cities.get('tijuana').plot();
-    var reynosa = cities.get('reynosa').plot();
-    var laredo = cities.get('nuevolaredo').plot();
 
     frontera = new google.maps.FusionTablesLayer({
         query: {
@@ -131,7 +124,8 @@ function initialize() {
       }
 
     initial_options = {
-        center: juarez,
+        center: new google.maps.LatLng(levels[LEVEL_COUNTER].center[0],
+                                        levels[LEVEL_COUNTER].center[1]),
         zoom: 11,
         mapTypeId: google.maps.MapTypeId.SATELLITE,
         draggable: false,
@@ -154,7 +148,6 @@ function initialize() {
              position: google.maps.ControlPosition.TOP_RIGHT
         },
         scrollwheel: true,
-        // scaleControl: true,
         zoomControl: true,
         draggable:true, 
         scrollwheel:true,
@@ -235,23 +228,26 @@ function doneDrawing() {
 }
 
 function showInfo() {
-    var juarez = cities.get('juarez')
-    var juarezLoc = new google.maps.LatLng(31.58847937271219, -106.60514831542969); // are these the citie's coordinate? if so we can use the paso.plot() method
-    var juarezWindow = new google.maps.InfoWindow();
-    var juarezContent = new CityContentView({model: juarez});
-    juarezWindow.setContent(juarezContent.render().el);
-    juarezWindow.setPosition(juarezLoc);
-    juarezWindow.open(map);
+    var mexicanCity = cities.get(levels[LEVEL_COUNTER].mexCity);
+    var mexicanLoc = mexicanCity.plot();
+    var mexicanWindow = new google.maps.InfoWindow();
+    var mexicanContent = new CityContentView({model: mexicanCity});
+    mexicanWindow.setContent(mexicanContent.render().el);
+    mexicanWindow.setPosition(mexicanLoc);
+    mexicanWindow.open(map);
     
-    var paso = cities.get('elpaso');
-    var pasoLoc = new google.maps.LatLng(31.693119,-106.316285); // are these the citie's coordinate? if so we can use the paso.plot() method
-    var pasoWindow = new google.maps.InfoWindow();
-    var pasoContent = new CityContentView({model: paso});
-    pasoWindow.setContent(pasoContent.render().el);
-    pasoWindow.setPosition(pasoLoc);
-    pasoWindow.open(map);
+    var usCity = cities.get(levels[LEVEL_COUNTER].usCity);
+    var usLoc = usCity.plot();
+    var usWindow = new google.maps.InfoWindow();
+    var usContent = new CityContentView({model: usCity});
+    usWindow.setContent(usContent.render().el);
+    usWindow.setPosition(usLoc);
+    usWindow.open(map);
 
     map.setOptions(done_options);
+
+    LEVEL_COUNTER++;
+    setTimeout("initialize()", 3000);
 }
 
 function getData(pos) {
@@ -315,4 +311,3 @@ function getData(pos) {
 -->
 </body>
 </html>
-
