@@ -1,13 +1,13 @@
-ID,County,Title,USA,population,unemployment,high school,grads,GDP,lat,lon
-cochise,"Cochise County, Arizona",Naco,1,130464,4.4%,22142,16.97%,,31.324607,-109.94595
-santacruz,"Santa Cruz County, Arizona",Nogales,1,46727,7.6%,8221,17.59%,,31.333698,-110.944115
-sandiego,"San Diego County, California",San Diego,1,3060849,5.6%,382142,12.48%,"$48,158",32.546813,-116.977723
-elpaso,"El Paso County, Texas",El Paso,1,787410,4.4%,112338,14.27%,"$29,759",31.748022,-106.413682
-hidalgo,"Hidalgo County, Texas",McAllen,1,757453,5.9%,100303,13.24%,"$16,783",26.078988,-98.271385
-webb,"Webb County, Texas",Laredo,1,245762,4.4%,28069,11.42%,"$21,440",27.497004,-99.494644
-naco,"Naco, Sonora",Naco,0,6401,9.3%,2622,40.96%,"$11,222",31.324607,-109.94595
-nogales,"Nogales, Sonora",Nogales,0,220292,5.6%,43848,19.90%,"$8,085",31.333698,-110.944115
-tijuana,"Tijuana, Baja California",Tijuana,0,1559683,5.3%,266234,17.07%,"$16,148",32.546813,-116.977723
-juarez,"Juarez, Chihuahua",Ciudad Juarez,0,1332131,6.4%,214167,16.08%,"$13,565",31.748022,-106.413682
-reynosa,"Reynosa, Tamaulipas",Reynosa,0,608891,3.6%,100243,16.46%,"$12,720",26.078988,-98.271385
-nuevolaredo,"Nuevo Laredo, Tamulipas",Nuevo Laredo,0,384033,5.2%,63700,16.59%,"$11,667",27.497004,-99.494644
+"ID","County","Title","USA","population","unemployment","high school","grads","GDP","lat","lon"
+"cochise","Cochise County, Arizona","Naco",1,130464,4.40%,22142,16.97%,,31.324607,-109.94595
+"santacruz","Santa Cruz County, Arizona","Nogales",1,46727,7.60%,8221,17.59%,,31.333698,-110.944115
+"sandiego","San Diego County, California","San Diego",1,3060849,5.60%,382142,12.48%,"$48,158",32.578757,-117.10366
+"elpaso","El Paso County, Texas","El Paso",1,787410,4.40%,112338,14.27%,"$29,759",31.693119,-106.316285
+"hidalgo","Hidalgo County, Texas","McAllen",1,757453,5.90%,100303,13.24%,"$16,783",26.105791,-98.214449
+"webb","Webb County, Texas","Laredo",1,245762,4.40%,28069,11.42%,"$21,440",27.515319,-99.369996
+"naco","Naco, Sonora","Naco",0,6401,9.30%,2622,40.96%,"$11,222",31.324607,-109.94595
+"nogales","Nogales, Sonora","Nogales",0,220292,5.60%,43848,19.90%,"$8,085",31.333698,-110.944115
+"tijuana","Tijuana, Baja California","Tijuana",0,1559683,5.30%,266234,17.07%,"$16,148",32.489957,-116.879864
+"juarez","Juarez, Chihuahua","Ciudad Juarez",0,1332131,6.40%,214167,16.08%,"$13,565",31.724072,-106.532271
+"reynosa","Reynosa, Tamaulipas","Reynosa",0,608891,3.60%,100243,16.46%,"$12,720",26.040846,-98.358772
+"nuevolaredo","Nuevo Laredo, Tamulipas","Nuevo Laredo",0,384033,5.20%,63700,16.59%,"$11,667",27.473348,-99.637858

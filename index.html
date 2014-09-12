@@ -18,29 +18,16 @@
 var CityModel = Backbone.Model.extend({
     parse: function(data){
 
-        // parse the model to have better names
-        data['geography'] = data['Geography'];
-        data['id'] =  data['ID'];
-        data['usa'] = parseInt(data['USA']);
-        data['title'] = data['Title'];
+        // parse ints and floats
+        data['usa'] = parseInt(data['usa']);
         data['gdp'] = parseInt(data['gdp'].replace('$', '').replace(',',''));
-        data['graduates_percent'] = data['grads'];
-        data['high_school'] = parseInt(data['high school']);
         data['latitude'] = parseFloat(data['lat']);
         data['longitude'] = parseFloat(data['lon']);
         data['population'] = parseInt(data['population'].replace(',',''));
-        data['unemployment_percent'] = data['unemployment'];
 
         // delete the old properties
-        delete data['Geography'];
-        delete data['ID'];
-        delete data['Title'];
-        delete data['USA'];
-        delete data['grads'];
-        delete data['high school'];
         delete data['lat'];
         delete data['lon'];
-        delete data['unemployment'];
 
         return data;
     },
@@ -85,7 +72,7 @@ var CityContentView = Backbone.View.extend({
             <span>\
                 Unemployment rate:\
             </span> \
-                <%= cityData.unemployment_percent %>\
+                <%= cityData.unemployment %>\
             </br>\
             <span>\
                 GDP per capita:\
