@@ -226,9 +226,7 @@ function showInfo() {
     openCityWindow(usCity);
 
     map.setOptions(done_options);
-
-    LEVEL_COUNTER++;
-    setTimeout("initialize()", 3000);
+    addNextButton();
 }
 
 function openCityWindow(city) {
@@ -238,6 +236,21 @@ function openCityWindow(city) {
     cityWindow.setContent(cityContent.render().el);
     cityWindow.setPosition(cityLocation);
     cityWindow.open(map);
+}
+
+function addNextButton () {
+    var nextButton = document.createElement('button');
+    nextButton.onclick = nextLevel;
+    nextButton.innerHTML='Next location';
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(nextButton);
+}
+
+function nextLevel() {
+    if (LEVEL_COUNTER !== (levels.length - 1)) {
+        LEVEL_COUNTER++;
+    } else { LEVEL_COUNTER = 0; }
+
+    initialize();
 }
 
 function getData(pos) {
