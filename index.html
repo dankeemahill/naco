@@ -183,15 +183,6 @@ function addLatLng(event) {
   // Because path is an MVCArray, we can simply append a new coordinate
   // and it will automatically appear
   path.push(event.latLng);
-  console.log(event.latLng)
-
-  // Add a new marker at the new plotted point on the polyline.
-  /*var marker = new google.maps.Marker({
-    position: event.latLng,
-    title: '#' + path.getLength(),
-    animation: google.maps.Animation.DROP,
-    map: map
-  });*/
 }
 
 function removePos() {
@@ -229,25 +220,24 @@ function doneDrawing() {
 
 function showInfo() {
     var mexicanCity = cities.get(levels[LEVEL_COUNTER].mexCity);
-    var mexicanLoc = mexicanCity.plot();
-    var mexicanWindow = new google.maps.InfoWindow();
-    var mexicanContent = new CityContentView({model: mexicanCity});
-    mexicanWindow.setContent(mexicanContent.render().el);
-    mexicanWindow.setPosition(mexicanLoc);
-    mexicanWindow.open(map);
+    openCityWindow(mexicanCity);
     
     var usCity = cities.get(levels[LEVEL_COUNTER].usCity);
-    var usLoc = usCity.plot();
-    var usWindow = new google.maps.InfoWindow();
-    var usContent = new CityContentView({model: usCity});
-    usWindow.setContent(usContent.render().el);
-    usWindow.setPosition(usLoc);
-    usWindow.open(map);
+    openCityWindow(usCity);
 
     map.setOptions(done_options);
 
     LEVEL_COUNTER++;
     setTimeout("initialize()", 3000);
+}
+
+function openCityWindow(city) {
+    var cityLocation = city.plot();
+    var cityWindow = new google.maps.InfoWindow();
+    var cityContent = new CityContentView({model: city});
+    cityWindow.setContent(cityContent.render().el);
+    cityWindow.setPosition(cityLocation);
+    cityWindow.open(map);
 }
 
 function getData(pos) {
@@ -292,22 +282,5 @@ function getData(pos) {
 
             <div id="map-canvas"></div>
 
-<!--
-        <h1> Naco or Naco?</h1>
-
-        <div class="side-link">
-            <img src='img/draw.jpg' href="index.html">
-            <a href="index.html">Play "Draw the Border!"</a>
-        </div>
-
-        <p class="lead">The unincorporated town of Naco, Arizona shares the border with... Naco, Sonora.The map below has been shifted, can you use the demographic data to figure out which Naco belongs in Mexico?</p>
-
-        <p>Sources: <a href="http://factfinder2.census.gov/faces/nav/jsf/pages/index.xhtml">American Community Survey</a>, <a href="http://www.snim.rami.gob.mx/">Sistema Nacional de Informacion Municipal</a></p>
-        
-        <small>Have fun? Think it sucks? Tweet <a href="https://twitter.com/DanHillReports">@DanHillReports</a></small>
-
-
-    </div>
--->
 </body>
 </html>
