@@ -129,7 +129,6 @@ function initialize() {
     frontera.setMap(map);
 
     $('#map-canvas').animate({rotate: '+=630'});
-    console.log(document.getElementById('map-canvas').style);
     document.getElementById('map-canvas').style.left=140;
     document.getElementById('map-canvas').style.top = -200;
     document.getElementById('map-canvas').style.position = 'fixed';
@@ -185,8 +184,7 @@ function guess(choice) {
 </head>
 
 <body onload="initialize()">
-
-<div class="container">
+<div id="canvas">
 
     <div class="navbar navbar-fixed-top navbar-inverse">
         <div class="navbar-inner">
@@ -198,21 +196,17 @@ function guess(choice) {
         </div>
     </div>
 
-    <div id="canvas">
+    <div class="container">
+        <h1>Naco or Naco?</h1>
 
-        <div id="header">
-            <h1> Naco or Naco?</h1>
-        <div class="side-link"><img src='img/draw.jpg' href="index.html" height="42" width="42" border='1px solid black'></br><a href="index.html">Play "Draw the Border!"</a></div>
-        <p class="lead">The unincorporated town of Naco, Arizona shares the border with... Naco, Sonora.</br>
+        <p class="lead">The unincorporated town of Naco, Arizona shares the border with... Naco, Sonora.</p>
         <p>The map below has been shifted, can you use the demographic data to figure out which Naco belongs in Mexico?</p>
         <p>Sources: <a href="http://factfinder2.census.gov/faces/nav/jsf/pages/index.xhtml">American Community Survey</a>, <a href="http://www.snim.rami.gob.mx/">Sistema Nacional de Informacion Municipal</a></span></p>
-        <small>Have fun? Think it sucks? Tweet <a href="https://twitter.com/DanHillReports">@DanHillReports</a>!</small>
-        </div>
+        <small>This is a <a href="http://www.chicagomigrahack.com/">Migrahack</a> prototype! Tweet feedback to <a href="https://twitter.com/DanHillReports">@DanHillReports</a></small>
 
-        	<div id="map-canvas"></div>
 
+        <div id="map-canvas"></div>
     </div>
-
 </div>
 
 </body>
