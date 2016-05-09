@@ -39,7 +39,7 @@ var CityModel = Backbone.Model.extend({
         return new google.maps.LatLng(this.get('latitude'), this.get('longitude'));
     },
 
-    
+
 });
 
 var CitiesCollection = Backbone.Collection.extend({
@@ -149,7 +149,7 @@ function initialize() {
         },
         scrollwheel: true,
         zoomControl: true,
-        draggable:true, 
+        draggable:true,
         scrollwheel:true,
     }
 
@@ -166,7 +166,7 @@ function initialize() {
     var lineBoxes = document.createElement('div');
     lineBoxes.id = 'line-boxes';
     lineBoxes.innerHTML='<input type="checkbox" class="box" id="line-edit-check" onclick="editLine()"/><label for="line-edit-check"> Edit line</label></br><button id="done-button" onclick="doneDrawing()"/><label for="done-button">Done!</label></button>';
-    lineBoxes.index = 1; 
+    lineBoxes.index = 1;
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(lineBoxes);
 
     return cities.toJSON();
@@ -221,7 +221,7 @@ function doneDrawing() {
 function showInfo() {
     var mexicanCity = cities.get(levels[LEVEL_COUNTER].mexCity);
     openCityWindow(mexicanCity);
-    
+
     var usCity = cities.get(levels[LEVEL_COUNTER].usCity);
     openCityWindow(usCity);
 
@@ -273,15 +273,13 @@ function getData(pos) {
             <ul class="nav">
                 <li class="active"><a href="#">Draw the Border</a></li>
                 <li><a href="naco.html">Naco or Naco?</a></li>
-                <li><a href="#">Source</a></li>
-                <li><a href="#">About</a></li>
             </ul>
         </div>
     </div>
 
     <div class="container">
         <h1> Draw the border!</h1>
-        
+
         <p class="lead">The <a href="http://apps.npr.org/borderland/">2,000-mile border</a> between the United States and Mexico divides the border city pictured below. Can you draw the line that splits this city?</p>
 
         <p>Sources: <a href="http://factfinder2.census.gov/faces/nav/jsf/pages/index.xhtml">American Community Survey</a>, <a href="http://www.snim.rami.gob.mx/">Sistema Nacional de Informacion Municipal</a> county data</p>
